@@ -1,0 +1,11 @@
+[
+{
+  "modid": "autoams",
+  "name": "AutoAMS",
+  "description": "AutoAMS for MineChaos",
+  "version": "69",
+  "mcversion": "1.8.9",
+  "url": "dc.venyx.de",
+  "authorList": ["byRizon"]
+}
+]
