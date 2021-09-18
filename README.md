@@ -8,5 +8,6 @@ Commands:
 ○ .autoams start - Start the bot.     
 ○ .autoams stop - Stop the bot.   
 ○ .autoams owner (name) - Change the AMS the bot will try to open.      
+○ .autoams random (seconds) - Change the value for the delay randomicer.   
 ○ .autoams delay (seconds) - Change the delay between a successfull try.    
-○ .autoams retrydelay (seconds) - Change the restart delay between an unsuccessfull try. 
+○ .autoams retrydelay (seconds) - Change the restart delay between an unsuccessfull try.
