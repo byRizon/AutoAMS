@@ -20,23 +20,23 @@ public class AutoAMSCommand implements ICommand {
 			AutoAMS ams = Main.getAutoAMS();
 			if (args[0].equalsIgnoreCase("start")) {
 				if (!ams.getState()) {
-					if (ams.start()) Utils.sendMessage(Main.prefix + "Bot \u00A7aenabled.");
+					if (ams.start()) Utils.sendMessage(Main.prefix + "Bot §aenabled.");
 				} else {
-					Utils.sendMessage(Main.prefix + "Bot \u00A77is \u00A77already \u00A7active.");
+					Utils.sendMessage(Main.prefix + "Bot §7is §7already §active.");
 				}
 			} else if (args[0].equalsIgnoreCase("stop")) {
 				if (ams.getState()) {
 					ams.stop();
-					Utils.sendMessage(Main.prefix + "Bot \u00A7cstopped.");
+					Utils.sendMessage(Main.prefix + "Bot §cstopped.");
 				} else {
-					Utils.sendMessage(Main.prefix + "Bot \u00A77is \u00A77not \u00A77active.");
+					Utils.sendMessage(Main.prefix + "Bot §7is §7not §7active.");
 				}
 			} else if (args[0].equalsIgnoreCase("owner")) {
 				if (args.length >= 2) {
 					config.setOwner(args[1]);
 					config.save();
 				} else {
-					Utils.sendMessage(Main.prefix + ".autoams \u00A77owner \u00A77[name]");
+					Utils.sendMessage(Main.prefix + ".autoams §7owner §7[name]");
 				}
 			} else if (args[0].equalsIgnoreCase("random")) {
 				if (args.length >= 2) {
@@ -44,16 +44,16 @@ public class AutoAMSCommand implements ICommand {
 					try {
 						value = Integer.parseInt(args[1]);
 						if (value < 10) {
-							Utils.sendMessage(Main.prefix + "Given \u00A77value \u00A77is \u00A77to \u00A77small.");
+							Utils.sendMessage(Main.prefix + "Given §7value §7is §7to §7small.");
 							return;
 						}
 						config.setRandom(value);
 						config.save();
 					} catch (NumberFormatException e) {
-						Utils.sendMessage(Main.prefix + "Given \u00A77value \u00A77is \u00A77not \u00A77numeric.");
+						Utils.sendMessage(Main.prefix + "Given §7value §7is §7not §7numeric.");
 					}
 				} else {
-					Utils.sendMessage(Main.prefix + ".autoams \u00A77random \u00A77[seconds]");
+					Utils.sendMessage(Main.prefix + ".autoams §7random §7[seconds]");
 				}
 			} else if (args[0].equalsIgnoreCase("delay")) {
 				if (args.length >= 2) {
@@ -61,16 +61,16 @@ public class AutoAMSCommand implements ICommand {
 					try {
 						value = Integer.parseInt(args[1]);
 						if (value < 10) {
-							Utils.sendMessage(Main.prefix + "Given \u00A77value \u00A77is \u00A77to \u00A77small.");
+							Utils.sendMessage(Main.prefix + "Given §7value §7is §7to §7small.");
 							return;
 						}
 						config.setDelay(value);
 						config.save();
 					} catch (NumberFormatException e) {
-						Utils.sendMessage(Main.prefix + "Given \u00A77value \u00A77is \u00A77not \u00A77numeric.");
+						Utils.sendMessage(Main.prefix + "Given §7value §7is §7not §7numeric.");
 					}
 				} else {
-					Utils.sendMessage(Main.prefix + ".autoams \u00A77delay \u00A77[seconds]");
+					Utils.sendMessage(Main.prefix + ".autoams §7delay §7[seconds]");
 				}
 			} else if (args[0].equalsIgnoreCase("retrydelay")) {
 				if (args.length >= 2) {
@@ -78,16 +78,16 @@ public class AutoAMSCommand implements ICommand {
 					try {
 						value = Integer.parseInt(args[1]);
 						if (value < 2) {
-							Utils.sendMessage(Main.prefix + "Given \u00A77value \u00A77is \u00A77to \u00A77small.");
+							Utils.sendMessage(Main.prefix + "Given §7value §7is §7to §7small.");
 							return;
 						}
 						config.setRetryDelay(value);
 						config.save();
 					} catch (NumberFormatException e) {
-						Utils.sendMessage(Main.prefix + "Given \u00A77value \u00A77is \u00A77not \u00A77numeric.");
+						Utils.sendMessage(Main.prefix + "Given §7value §7is §7not §7numeric.");
 					}
 				} else {
-					Utils.sendMessage(Main.prefix + ".autoams \u00A77delay \u00A77[seconds]");
+					Utils.sendMessage(Main.prefix + ".autoams §7delay §7[seconds]");
 				}
 			} else {
 				sendUsage();
@@ -98,16 +98,16 @@ public class AutoAMSCommand implements ICommand {
 	}
 	
 	private void sendUsage() {
-		Utils.sendMessage("\u00A78\u00A7m-[-----------\u00A7r \u00A79\u00A7lAutoAMS\u00A7r \u00A78\u00A7m-----------]-");
+		Utils.sendMessage("§8§m-[-----------§r §9§lAutoAMS§r §8§m-----------]-");
 		Utils.sendMessage(" ");
-		Utils.sendMessage("  \u00A78\u25b6 \u00A77.autoams \u00A77start");
-		Utils.sendMessage("  \u00A78\u25b6 \u00A77.autoams \u00A77stop ");
-		Utils.sendMessage("  \u00A78\u25b6 \u00A77.autoams \u00A77owner \u00A77[name]");
-		Utils.sendMessage("  \u00A78\u25b6 \u00A77.autoams \u00A77random \u00A77[seconds]");
-		Utils.sendMessage("  \u00A78\u25b6 \u00A77.autoams \u00A77delay \u00A77[seconds]");
-		Utils.sendMessage("  \u00A78\u25b6 \u00A77.autoams \u00A77retrydelay \u00A77[seconds]");
+		Utils.sendMessage("  §8\u25b6 §7.autoams §7start");
+		Utils.sendMessage("  §8\u25b6 §7.autoams §7stop ");
+		Utils.sendMessage("  §8\u25b6 §7.autoams §7owner §7[name]");
+		Utils.sendMessage("  §8\u25b6 §7.autoams §7random §7[seconds]");
+		Utils.sendMessage("  §8\u25b6 §7.autoams §7delay §7[seconds]");
+		Utils.sendMessage("  §8\u25b6 §7.autoams §7retrydelay §7[seconds]");
 		Utils.sendMessage(" ");
-		Utils.sendMessage("\u00A78\u00A7m-[-----------\u00A7r \u00A79\u00A7lAutoAMS\u00A7r \u00A78\u00A7m-----------]-");
+		Utils.sendMessage("§8§m-[-----------§r §9§lAutoAMS§r §8§m-----------]-");
 	}
 	
 	public String getCommandName() {

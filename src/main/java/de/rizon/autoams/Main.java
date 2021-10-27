@@ -10,13 +10,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-@Mod(modid = "autoams", name = "AutoAMS", version = "69", acceptedMinecraftVersions = "[1.8.9]")
+@Mod(modid = "autoams", name = "AutoAMS", version = "1.0", acceptedMinecraftVersions = "[1.8.9]")
 public class Main {
 
 	private static Main instance;
 	private static Config config;
 	private static AutoAMS autoams;
-	public static String prefix = "\u00A79\u00A7lAutoAMS \u00A78\u25b6 \u00A77";
+	public static String prefix = "§9§lAutoAMS §8\u25b6 §7";
 	
 	@EventHandler
 	public void onInit(FMLInitializationEvent e) {

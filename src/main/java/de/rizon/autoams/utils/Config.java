@@ -66,8 +66,7 @@ public class Config {
             FileWriter w = new FileWriter(file, false);
             w.write(amsowner + "\n" + random + "\n" + delay + "\n" + retrydelay);
             w.close();
-        }
-        catch (Throwable e) {}
+        } catch (Throwable e) {}
 	}
 
 	public String getOwner() {

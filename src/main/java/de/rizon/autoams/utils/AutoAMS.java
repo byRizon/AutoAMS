@@ -41,10 +41,10 @@ public class AutoAMS {
 								ContainerChest con = (ContainerChest) mc.thePlayer.openContainer;
 								IInventory inv = con.getLowerChestInventory();
 								if (scanRows(inv)) {
-									Utils.sendMessage(Main.prefix + "Found \u00A77valid \u00A77solution...");
+									Utils.sendMessage(Main.prefix + "Found §7valid §7solution...");
 									restart(config.getDelay() + Utils.getRandom(config.getRandom()));
 								} else {
-									Utils.sendMessage(Main.prefix + "No \u00A77solution \u00A77found...");
+									Utils.sendMessage(Main.prefix + "No §7solution §7found...");
 									restart(config.getRetryDelay() + (Utils.getRandom(config.getRandom() / 2)));
 								}
 							}
@@ -52,11 +52,11 @@ public class AutoAMS {
 					}					
 				}, 2, TimeUnit.SECONDS);
 			} else {
-				Utils.sendMessage(Main.prefix + "This \u00A77only \u00A77works \u00A77on \u00A77MineChaos.");
+				Utils.sendMessage(Main.prefix + "This §7only §7works §7on §7MineChaos.");
 				state = false;
 			}
 		} else {
-			Utils.sendMessage(Main.prefix + "Please \u00A77play \u00A77multiplayer \u00A77for \u00A77this.");
+			Utils.sendMessage(Main.prefix + "Please §7play §7multiplayer §7for §7this.");
 			state = false;
 		}
 		return state;
