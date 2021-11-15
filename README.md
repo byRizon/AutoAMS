@@ -1,9 +1,6 @@
 # AutoAMS
 A simple Mod to bypass the AMS captcha on MineChaos.
 
-Recommendation:   
-○ Use the "NoForge" Mod by CCBlueX to hide your installed Forge mods.
-
 Commands:       
 ○ .autoams start - Start the bot.     
 ○ .autoams stop - Stop the bot.   
