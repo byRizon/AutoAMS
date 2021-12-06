@@ -14,57 +14,75 @@ import net.minecraft.item.ItemStack;
 
 public class AutoAMS {
 	
-	ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-	ScheduledFuture<?> task1;
-	ScheduledFuture<?> task2;
-	ScheduledFuture<?> task3;
-	ScheduledFuture<?> task4;
-	ScheduledFuture<?> task5;
-	Minecraft mc = Minecraft.getMinecraft();
-	boolean state;
+	private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+	private ScheduledFuture<?> task1;
+	private ScheduledFuture<?> task2;
+	private ScheduledFuture<?> task3;
+	private ScheduledFuture<?> task4;
+	private ScheduledFuture<?> task5;
+	private Minecraft mc = Minecraft.getMinecraft();
+	private boolean state;
 	
 	public boolean start() {
 		state = true;
-		if (mc.theWorld != null && !mc.isSingleplayer() && !mc.isIntegratedServerRunning()) {
-			if (mc.getCurrentServerData().serverIP.toLowerCase().contains("minechaos")) {
-				Config config = Main.getConfig();
-				mc.thePlayer.closeScreen();
-				mc.displayGuiScreen((GuiScreen) null);
-				mc.thePlayer.sendChatMessage("/ams " + config.getOwner());
-				task1 = executor.schedule(new Runnable() {
-					public void run() {
-						if (!state) return;
-						mc.playerController.windowClick(mc.thePlayer.openContainer.windowId, 22, 0, 0, mc.thePlayer);
-						task2 = executor.schedule(new Runnable() {
-							public void run() {
-								if (!state) return;
-								ContainerChest con = (ContainerChest) mc.thePlayer.openContainer;
-								IInventory inv = con.getLowerChestInventory();
-								if (scanRows(inv)) {
-									Utils.sendMessage(Main.prefix + "Found §7valid §7solution...");
-									restart(config.getDelay() + Utils.getRandom(config.getRandom()));
-								} else {
-									Utils.sendMessage(Main.prefix + "No §7solution §7found...");
-									restart(config.getRetryDelay() + (Utils.getRandom(config.getRandom() / 2)));
-								}
+		if (onServer()) {
+			Config config = Main.getConfig();
+			mc.thePlayer.closeScreen();
+			mc.displayGuiScreen((GuiScreen) null);
+			mc.thePlayer.sendChatMessage("/ams " + config.getOwner());
+			task1 = executor.schedule(new Runnable() {
+				public void run() {
+					if (!onServer()) {
+						stop();
+						return;
+					}
+					if (!state) return;
+					mc.playerController.windowClick(mc.thePlayer.openContainer.windowId, 22, 0, 0, mc.thePlayer);
+					task2 = executor.schedule(new Runnable() {
+						public void run() {
+							if (!onServer()) {
+								stop();
+								return;
 							}
-						}, 2, TimeUnit.SECONDS);
-					}					
-				}, 2, TimeUnit.SECONDS);
-			} else {
-				Utils.sendMessage(Main.prefix + "This §7only §7works §7on §7MineChaos.");
-				state = false;
-			}
+							if (!state) return;
+							ContainerChest con = (ContainerChest) mc.thePlayer.openContainer;
+							IInventory inv = con.getLowerChestInventory();
+							if (scanRows(inv)) {
+								Utils.sendMessage(Main.prefix + "Found §7valid §7solution...");
+								restart(config.getDelay() + Utils.getRandom(config.getRandom()));
+							} else {
+								Utils.sendMessage(Main.prefix + "No §7solution §7found...");
+								mc.thePlayer.closeScreen();
+								mc.displayGuiScreen((GuiScreen) null);
+								restart(config.getRetryDelay() + (Utils.getRandom(config.getRandom() / 2)));
+							}
+						}
+					}, 2, TimeUnit.SECONDS);
+				}					
+			}, 2, TimeUnit.SECONDS);
 		} else {
-			Utils.sendMessage(Main.prefix + "Please §7play §7multiplayer §7for §7this.");
+			Utils.sendMessage(Main.prefix + "This §7only §7works §7on §7MineChaos.");
 			state = false;
 		}
 		return state;
 	}
 	
+	private boolean onServer() {
+		if (mc.theWorld != null && !mc.isSingleplayer() && !mc.isIntegratedServerRunning()) {
+			if (mc.getCurrentServerData().serverIP.toLowerCase().contains("minechaos")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private void restart(int seconds) {
 		task3 = executor.schedule(new Runnable() {
 			public void run() {
+				if (!onServer()) {
+					stop();
+					return;
+				}
 				if (!state) return;
 				Utils.sendMessage(Main.prefix + "Restarting...");
 				start();
@@ -115,6 +133,10 @@ public class AutoAMS {
 	private void solveCaptcha(IInventory inv, int first, int middle, int key) {
 		task4 = executor.schedule(new Runnable() {
 			public void run() {
+				if (!onServer()) {
+					stop();
+					return;
+				}
 				if (!state) return;
 				mc.playerController.windowClick(mc.thePlayer.openContainer.windowId, key, 0, 0, mc.thePlayer);
 				task5 = executor.schedule(new Runnable() {
